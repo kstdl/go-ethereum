@@ -206,8 +206,8 @@ func TestClientWebsocketLargeMessage(t *testing.T) {
 	defer srv.Stop()
 	defer httpsrv.Close()
 
-	respLength := wsMessageSizeLimit - 50
-	srv.RegisterName("test", largeRespService{respLength})
+	respLength := WsMessageSizeLimit - 50
+	srv.RegisterName("test", largeRespService{int(respLength)})
 
 	c, err := DialWebsocket(context.Background(), wsURL, "")
 	if err != nil {
@@ -218,7 +218,7 @@ func TestClientWebsocketLargeMessage(t *testing.T) {
 	if err := c.Call(&r, "test_largeResp"); err != nil {
 		t.Fatal("call failed:", err)
 	}
-	if len(r) != respLength {
+	if len(r) != int(respLength) {
 		t.Fatalf("response has wrong length %d, want %d", len(r), respLength)
 	}
 }

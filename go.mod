@@ -1,4 +1,4 @@
-module github.com/ethereum/go-ethereum
+module github.com/taraxa-project/go-ethereum
 
 go 1.20
 
